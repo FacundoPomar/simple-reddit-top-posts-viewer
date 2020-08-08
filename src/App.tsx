@@ -1,6 +1,6 @@
 import React from 'react';
 import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
-import './App.css';
+import './App.scss';
 import { Typography } from '@material-ui/core';
 
 function App() {
