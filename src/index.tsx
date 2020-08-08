@@ -4,10 +4,14 @@ import App from './App';
 import 'fontsource-roboto';
 import './index.scss';
 import * as serviceWorker from './serviceWorker';
+import { Provider } from 'react-redux';
+import postsStore from './stores/posts';
 
 ReactDOM.render(
   <React.StrictMode>
-      <App />
+      <Provider store={postsStore}>
+        <App />
+      </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
