@@ -1,32 +1,28 @@
 import React, { useEffect } from 'react';
 import './App.scss';
-import { Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import postsStore, { PostsState } from './stores/posts';
-import { Post } from './models/post';
 import { postsLoaded, postsLoading } from './actions/posts';
-import PostItem from './components/PostItem/PostItem';
 import PostItemLoading from './components/PostItemLoading/PostItemLoading';
-import PostItemContainer from './components/PostItemContainer/PostItemContainer';
 import AppNavbar from './components/AppNavbar/AppNavbar';
+import PostsList from './components/PostsList/PostsList';
+import PostsService from './Services/Posts';
 
 const App: React.FC = () => {
-  const posts = useSelector<PostsState, Post[]>( state => state.posts );
   const dataLoading = useSelector<PostsState, boolean>( state => state.postsLoading );
 
   useEffect( () => {
-    postsStore.dispatch( postsLoading( true ) );
+    ( async (): Promise<void> => {
+      postsStore.dispatch( postsLoading( true ) );
 
-    fetch( 'https://www.reddit.com/top.json?&limit=25&raw_json=1' )
-      .then( response => response.json() )
-      .then( res => {
-        const posts = res.data.children.map( ( child: { data: Post } ) => child.data );
+      const postsResponse = await PostsService.loadPosts();
 
-        postsStore.dispatch( postsLoaded( posts ) );
-      })
-      .finally( () => {
-        postsStore.dispatch( postsLoading( false ) );
-      });
+      const posts = postsResponse.data.children.map( child => child.data );
+
+      postsStore.dispatch( postsLoaded( posts ) );
+
+      postsStore.dispatch( postsLoading( false ) );
+    })();
   }, []);
 
   return (
@@ -39,18 +35,9 @@ const App: React.FC = () => {
           <PostItemLoading />
         </>
       }
-      { !dataLoading && !posts.length &&
-        <PostItemContainer>
-          <Typography variant='subtitle1'>
-            No posts to show.
-          </Typography>
-        </PostItemContainer>
+      { !dataLoading &&
+        <PostsList />
       }
-      { !dataLoading && posts.map( post => (
-        <PostItem
-          key={post.id}
-          post={post} />
-      ) )}
     </div>
   );
 }
