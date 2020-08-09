@@ -2,5 +2,7 @@ export interface Post {
     author: string;
     title: string;
     id: string;
-    thumbnail?: string
+    thumbnail?: string,
+    created_utc: number;
+    num_comments: number;
 }
