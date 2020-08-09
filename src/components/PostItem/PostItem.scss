@@ -3,12 +3,6 @@
     flex-grow: 1;
     line-break: anywhere;
     position: relative;
-
-    &:hover {
-      .post-item__dismiss-button {
-        display: initial;
-      }
-    }
   }
 
   &__thumbnail {
@@ -37,6 +31,5 @@
     position: absolute;
     top: 0;
     right: 10px;
-    display: none;
   }
 }

@@ -1,4 +1,5 @@
 @import './styles/variables';
+@import './styles/mixins';
 
 .app {
   &__container {
@@ -10,22 +11,43 @@
   }
 
   &__posts-container {
-    margin-right: 15px;
+    width: 95vw;
+    height: 100%;
+    background-color: $main-background;
+    padding: 10px;
   }
 
   &__post-detail-container {
-    margin-left: 15px;
-  }
-
-  &__posts-container,
-  &__post-detail-container {
-    flex-grow: 1;
-    flex-basis: 0;
+    width: 90vw;
+    max-width: 1000px;
   }
 
   &__inner-container {
     display: flex;
     justify-content: space-around;
     margin: 30px;
+  }
+
+  &__posts-container-title {
+    display: flex;
+    align-items: center;
+  }
+}
+
+@include md {
+  .app {
+    &__container--sidenav-opened {
+      .app__inner-container {
+        justify-content: flex-end;
+      }
+    }
+
+    &__post-detail-container {
+      width: 65vw;
+    }
+
+    &__posts-container {
+      width: 30vw;
+    }
   }
 }

@@ -10,7 +10,11 @@ import PostsService, { PostsFetchRequest } from '../../Services/Posts';
 import './PostsList.scss';
 import PostItemLoading from '../PostItemLoading/PostItemLoading';
 
-const PostsList: React.FC = () => {
+export interface PostsList {
+  onSelection: ( post: Post ) => void;
+}
+
+const PostsList: React.FC<PostsList> = ( props ) => {
   const posts = useSelector<PostsState, Post[]>( state => state.posts );
   const selectedPost = useSelector<PostsState, Post | undefined>( state => state.selectedPost );
   const currentSlice = useSelector<PostsState, PostsSlice>( state => state.slice );
@@ -55,6 +59,7 @@ const PostsList: React.FC = () => {
 
   const onPostSelection = ( post: Post ): void => {
     postsStore.dispatch( postSelected( post ) );
+    props.onSelection( post );
   }
 
   const onDismissAll = (): void => {
