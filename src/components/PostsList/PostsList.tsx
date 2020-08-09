@@ -6,7 +6,11 @@ import PostItem from '../PostItem/PostItem';
 import PostItemContainer from '../PostItemContainer/PostItemContainer';
 import { Typography } from '@material-ui/core';
 
-const PostsList: React.FC = () => {
+export interface PostsListProps {
+  onSelection: ( post: Post ) => void;
+}
+
+const PostsList: React.FC<PostsListProps> = ({ onSelection }) => {
   const posts = useSelector<PostsState, Post[]>(state => state.posts);
 
   return (
@@ -21,6 +25,9 @@ const PostsList: React.FC = () => {
       { posts.map( post =>
         <PostItem
           key={post.id}
+          onClick={() => {
+            onSelection( post );
+          }}
           post={post} />
       )}
     </>

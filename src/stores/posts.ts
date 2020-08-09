@@ -5,6 +5,7 @@ import { devToolsEnhancer } from 'redux-devtools-extension/developmentOnly';
 
 export interface PostsState {
     posts: Post[];
+    selectedPost?: Post;
     postsLoading: boolean;
     slice: PostsSlice;
 }

@@ -2,18 +2,20 @@ import React, { useEffect } from 'react';
 import './App.scss';
 import { useSelector } from 'react-redux';
 import postsStore, { PostsState } from './stores/posts';
-import { postsLoaded, postsLoading } from './actions/posts';
+import { postsLoaded, postsLoading, postSelected } from './actions/posts';
 import PostItemLoading from './components/PostItemLoading/PostItemLoading';
 import AppNavbar from './components/AppNavbar/AppNavbar';
 import PostsList from './components/PostsList/PostsList';
 import PostsService, { PostsFetchRequest } from './Services/Posts';
 import { Button } from '@material-ui/core';
-import { PostsSlice } from './models/post';
+import { PostsSlice, Post } from './models/post';
 import PostItemContainer from './components/PostItemContainer/PostItemContainer';
+import PostDetails from './components/PostDetail/PostDetail';
 
 const App: React.FC = () => {
   const dataLoading = useSelector<PostsState, boolean>( state => state.postsLoading );
   const currentSlice = useSelector<PostsState, PostsSlice>( state => state.slice );
+  const selectedPost = useSelector<PostsState, Post | undefined>( state => state.selectedPost );
 
   useEffect( () => {
     loadPosts();
@@ -44,36 +46,47 @@ const App: React.FC = () => {
     });
   };
 
+  const onPostSelection = ( post: Post ): void => {
+    postsStore.dispatch( postSelected( post ) );
+  }
+
   return (
     <div className='app__container'>
       <AppNavbar />
-      <div className='app__posts-container'>
-        { dataLoading &&
-          <>
-            <PostItemLoading />
-            <PostItemLoading />
-            <PostItemLoading />
-          </>
-        }
-        { !dataLoading &&
-          <>
-          <PostsList />
-          <PostItemContainer>
-            <Button
-              variant='contained'
-              color='secondary'
-              onClick={onPrev}>
-              Prev
-            </Button>
-            <Button
-              variant='contained'
-              color='secondary'
-              onClick={onNext}>
-              Next
-            </Button>
-          </PostItemContainer>
-          </>
-        }
+      <div className='app__inner-container'>
+        <div className='app__posts-container'>
+          { dataLoading &&
+            <>
+              <PostItemLoading />
+              <PostItemLoading />
+              <PostItemLoading />
+            </>
+          }
+          { !dataLoading &&
+            <>
+            <PostsList onSelection={onPostSelection}/>
+            <PostItemContainer>
+              <div className='app__posts-pagination'>
+                <Button
+                  variant='contained'
+                  color='secondary'
+                  onClick={onPrev}>
+                  Prev
+                </Button>
+                <Button
+                  variant='contained'
+                  color='secondary'
+                  onClick={onNext}>
+                  Next
+                </Button>
+              </div>
+            </PostItemContainer>
+            </>
+          }
+        </div>
+        <div className='app__post-detail-container'>
+          <PostDetails post={selectedPost}/>
+        </div>
       </div>
     </div>
   );

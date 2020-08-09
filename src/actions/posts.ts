@@ -2,7 +2,8 @@ import { Post } from "../models/post";
 
 export enum PostActionTypes {
     POSTS_LOADED = 'postsLoaded',
-    POSTS_LOADING = 'postsLoading'
+    POSTS_LOADING = 'postsLoading',
+    POST_SELECTED = 'postSelected'
 }
 
 export interface PostAction {
@@ -22,6 +23,12 @@ export interface PostActionLoading  extends PostAction {
     }
 }
 
+export interface PostActionSelected  extends PostAction {
+    payload: {
+        post: Post
+    }
+}
+
 export const postsLoaded = ( posts: Post[], slice: string ): PostActionLoaded => {
     return {
         type: PostActionTypes.POSTS_LOADED,
@@ -37,6 +44,15 @@ export const postsLoading = ( loading: boolean ): PostActionLoading => {
         type: PostActionTypes.POSTS_LOADING,
         payload: {
             loading
+        }
+    };
+}
+
+export const postSelected = ( post: Post ): PostActionSelected => {
+    return {
+        type: PostActionTypes.POST_SELECTED,
+        payload: {
+            post
         }
     };
 }

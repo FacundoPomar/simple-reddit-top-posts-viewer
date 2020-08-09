@@ -1,34 +1,37 @@
 import { Reducer } from "redux";
 import { PostsState, defaultPostsState } from "../stores/posts";
-import { PostAction, PostActionTypes, PostActionLoaded, PostActionLoading } from "../actions/posts";
+import { PostAction, PostActionTypes, PostActionLoaded, PostActionLoading, PostActionSelected } from "../actions/posts";
 import { PostsSlice } from "../models/post";
 
 export const postsReducer: Reducer<PostsState, PostAction> =
-    ( state: PostsState = defaultPostsState, action: PostAction ) => {
+  ( state: PostsState = defaultPostsState, action: PostAction ) => {
 
-    let actionObj;
+  let actionObj;
 
-    switch (action.type) {
-        case PostActionTypes.POSTS_LOADED:
-            actionObj = action as PostActionLoaded;
+  switch (action.type) {
+    case PostActionTypes.POSTS_LOADED:
+      actionObj = action as PostActionLoaded;
 
-            const slice: PostsSlice = {
-                current: actionObj.payload.slice
-            };
+      const slice: PostsSlice = {
+          current: actionObj.payload.slice
+      };
 
-            const posts = [ ...actionObj.payload.posts ];
-            // Make sure post timestamp is in the right format
-            posts.forEach( post => post.created_utc = post.created_utc * 1000);
+      const posts = [ ...actionObj.payload.posts ];
+      // Make sure post timestamp is in the right format
+      posts.forEach( post => post.created_utc = post.created_utc * 1000);
 
-            return {
-                ...state,
-                posts,
-                slice
-            };
-        case PostActionTypes.POSTS_LOADING:
-            actionObj = action as PostActionLoading;
-            return { ...state, postsLoading: actionObj.payload.loading };
-        default:
-            return state;
-    }
+      return {
+          ...state,
+          posts,
+          slice
+      };
+    case PostActionTypes.POSTS_LOADING:
+      actionObj = action as PostActionLoading;
+      return { ...state, postsLoading: actionObj.payload.loading };
+    case PostActionTypes.POST_SELECTED:
+      actionObj = action as PostActionSelected;
+      return { ...state, selectedPost: actionObj.payload.post };
+    default:
+      return state;
+  }
 }

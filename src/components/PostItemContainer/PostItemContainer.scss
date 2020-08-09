@@ -2,14 +2,11 @@
   margin-top: 20px;
   width: 100%;
 
-  &:last-child {
-    margin-bottom: 20px;
+  &:first-child {
+    margin-top: 0;
   }
 
   &__inner-container {
     padding: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
   }
 }

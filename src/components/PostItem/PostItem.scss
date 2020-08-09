@@ -8,4 +8,10 @@
     min-width: 140px;
     height: 100%;
   }
+
+  &__inner-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }

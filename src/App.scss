@@ -5,13 +5,33 @@
     height: auto;
     background-color: $main-background;
     display: flex;
-    align-items: center;
     flex-direction: column;
     min-height: 100%;
   }
 
   &__posts-container {
-    width: 80%;
-    max-width: 700px;
+    margin-right: 15px;
+  }
+
+  &__post-detail-container {
+    margin-left: 15px;
+  }
+
+  &__posts-container,
+  &__post-detail-container {
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+
+  &__inner-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 30px;
+  }
+
+  &__posts-pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
