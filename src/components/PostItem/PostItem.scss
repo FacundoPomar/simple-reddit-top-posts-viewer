@@ -1,0 +1,24 @@
+.post-item {
+  margin-top: 20px;
+  width: 80%;
+  max-width: 700px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &__inner-container {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__info {
+    flex-grow: 1;
+  }
+
+  &__thumbnail {
+    min-width: 140px;
+  }
+}

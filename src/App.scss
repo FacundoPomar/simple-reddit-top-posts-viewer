@@ -9,33 +9,4 @@
     flex-direction: column;
     min-height: 100%;
   }
-
-  &__logo-container {
-    font-size: 10rem;
-  }
-
-  &__item {
-    margin-top: 20px;
-    width: 80%;
-    max-width: 700px;
-
-    &:first-child {
-      margin-top: 0;
-    }
-  }
-
-  &__post-inner-container {
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  &__post-info {
-    flex-grow: 1;
-  }
-
-  &__post-thumbnail {
-    min-width: 140px;
-  }
 }

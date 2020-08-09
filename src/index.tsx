@@ -6,12 +6,15 @@ import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import postsStore from './stores/posts';
+import { StylesProvider } from '@material-ui/core';
 
 ReactDOM.render(
   <React.StrictMode>
-      <Provider store={postsStore}>
-        <App />
-      </Provider>
+      <StylesProvider injectFirst>
+        <Provider store={postsStore}>
+          <App />
+        </Provider>
+      </StylesProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
