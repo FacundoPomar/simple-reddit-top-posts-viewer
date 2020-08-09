@@ -71,6 +71,12 @@ export const postsReducer: Reducer<PostsState, PostAction> =
         posts: newPosts,
         selectedPost: undefined
       };
+    case PostActionTypes.POSTS_DISMISS_ALL:
+      return {
+        ...state,
+        posts: [],
+        selectedPost: undefined
+      }
     default:
       return state;
   }

@@ -5,7 +5,7 @@ import postsStore, { PostsState } from '../../stores/posts';
 import PostItem from '../PostItem/PostItem';
 import PostItemLayout from '../PostItemLayout/PostItemLayout';
 import { Typography, Button } from '@material-ui/core';
-import { postDismissed, postSelected, postsLoading, postsLoaded } from '../../actions/posts';
+import { postDismissed, postSelected, postsLoading, postsLoaded, postsDismissAll } from '../../actions/posts';
 import PostsService, { PostsFetchRequest } from '../../Services/Posts';
 import './PostsList.scss';
 import PostItemLoading from '../PostItemLoading/PostItemLoading';
@@ -57,6 +57,10 @@ const PostsList: React.FC = () => {
     postsStore.dispatch( postSelected( post ) );
   }
 
+  const onDismissAll = (): void => {
+    postsStore.dispatch( postsDismissAll() );
+  }
+
   return (
     <>
       { (!posts.length && !dataLoading) &&
@@ -93,6 +97,15 @@ const PostsList: React.FC = () => {
             onClick={onPrev}>
             Prev
           </Button>
+          { posts.length ?
+            <Button
+              variant='contained'
+              color='secondary'
+              onClick={onDismissAll}>
+              Dismiss All
+            </Button>
+            : null
+          }
           <Button
             variant='contained'
             color='secondary'
