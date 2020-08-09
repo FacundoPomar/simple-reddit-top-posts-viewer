@@ -16,9 +16,11 @@
 
   &__info {
     flex-grow: 1;
+    line-break: anywhere;
   }
 
   &__thumbnail {
     min-width: 140px;
+    height: 100%;
   }
 }
