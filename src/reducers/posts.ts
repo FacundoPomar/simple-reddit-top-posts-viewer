@@ -1,7 +1,8 @@
 import { Reducer } from "redux";
 import { PostsState, defaultPostsState } from "../stores/posts";
-import { PostAction, PostActionTypes, PostActionLoaded, PostActionLoading, PostActionSelected } from "../actions/posts";
-import { PostsSlice } from "../models/post";
+import { PostAction, PostActionTypes, PostActionLoaded, PostActionLoading, PostActionSelected, PostActionDismissed } from "../actions/posts";
+import { PostsSlice, Post } from "../models/post";
+import { cloneDeep, remove } from 'lodash';
 
 export const postsReducer: Reducer<PostsState, PostAction> =
   ( state: PostsState = defaultPostsState, action: PostAction ) => {
@@ -16,9 +17,26 @@ export const postsReducer: Reducer<PostsState, PostAction> =
           current: actionObj.payload.slice
       };
 
-      const posts = [ ...actionObj.payload.posts ];
-      // Make sure post timestamp is in the right format
-      posts.forEach( post => post.created_utc = post.created_utc * 1000);
+      const postsList = [ ...actionObj.payload.posts ];
+      const posts = postsList.map( ({ author, title, id, thumbnail, created_utc, num_comments, url, media } ) => {
+
+        const post: Post = {
+          author,
+          title,
+          id,
+          thumbnail,
+          created_utc,
+          num_comments,
+          url,
+          media,
+          read: false
+        };
+
+        // Make sure post timestamp is in the right format
+        post.created_utc = post.created_utc * 1000
+
+        return post;
+      });
 
       return {
           ...state,
@@ -30,7 +48,29 @@ export const postsReducer: Reducer<PostsState, PostAction> =
       return { ...state, postsLoading: actionObj.payload.loading };
     case PostActionTypes.POST_SELECTED:
       actionObj = action as PostActionSelected;
-      return { ...state, selectedPost: actionObj.payload.post };
+
+      const selectedPostId = actionObj.payload.post.id;
+      const postsCopy = cloneDeep(state.posts);
+
+      const selectedPost = postsCopy.find( postElem => postElem.id === selectedPostId );
+
+      if ( selectedPost ) {
+        selectedPost.read = true;
+        return { ...state, posts: postsCopy, selectedPost };
+      }
+      return state;
+    case PostActionTypes.POST_DISMISSED:
+      actionObj = action as PostActionDismissed;
+
+      const postIdToRemove = actionObj.payload.post.id;
+      const oldPosts = cloneDeep(state.posts);
+      const newPosts = remove( oldPosts, post => post.id !== postIdToRemove );
+
+      return {
+        ...state,
+        posts: newPosts,
+        selectedPost: undefined
+      };
     default:
       return state;
   }

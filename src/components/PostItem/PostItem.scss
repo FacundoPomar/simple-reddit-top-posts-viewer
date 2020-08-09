@@ -2,6 +2,13 @@
   &__info {
     flex-grow: 1;
     line-break: anywhere;
+    position: relative;
+
+    &:hover {
+      .post-item__dismiss-button {
+        display: initial;
+      }
+    }
   }
 
   &__thumbnail {
@@ -13,5 +20,23 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+  }
+
+  &__new-post {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  &__new-post-label {
+    padding-left: 5px;
+  }
+
+  &__dismiss-button {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    display: none;
   }
 }

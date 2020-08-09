@@ -9,7 +9,7 @@ import PostsList from './components/PostsList/PostsList';
 import PostsService, { PostsFetchRequest } from './Services/Posts';
 import { Button } from '@material-ui/core';
 import { PostsSlice, Post } from './models/post';
-import PostItemContainer from './components/PostItemContainer/PostItemContainer';
+import PostItemLayout from './components/PostItemLayout/PostItemLayout';
 import PostDetails from './components/PostDetail/PostDetail';
 
 const App: React.FC = () => {
@@ -65,7 +65,7 @@ const App: React.FC = () => {
           { !dataLoading &&
             <>
             <PostsList onSelection={onPostSelection}/>
-            <PostItemContainer>
+            <PostItemLayout>
               <div className='app__posts-pagination'>
                 <Button
                   variant='contained'
@@ -80,7 +80,7 @@ const App: React.FC = () => {
                   Next
                 </Button>
               </div>
-            </PostItemContainer>
+            </PostItemLayout>
             </>
           }
         </div>

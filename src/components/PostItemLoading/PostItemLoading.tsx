@@ -1,10 +1,10 @@
 import React from 'react';
 import Skeleton from '@material-ui/lab/Skeleton';
-import PostItemContainer from '../PostItemContainer/PostItemContainer';
+import PostItemLayout from '../PostItemLayout/PostItemLayout';
 import './PostItemLoading.scss';
 
 const PostItemLoading: React.FC = () => (
-  <PostItemContainer>
+  <PostItemLayout>
     <div className='post-item-loading'>
       <div className='post-item-loading__info-container'>
         <div>
@@ -35,7 +35,7 @@ const PostItemLoading: React.FC = () => (
               height='100%' />
       </div>
     </div>
-  </PostItemContainer>
+  </PostItemLayout>
 );
 
 export default PostItemLoading;

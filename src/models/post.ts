@@ -17,6 +17,7 @@ export interface Post {
     num_comments: number;
     url?: string;
     media?: PostMedia;
+    read: boolean;
 }
 
 export interface PostsSlice {
