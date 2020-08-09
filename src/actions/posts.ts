@@ -11,7 +11,8 @@ export interface PostAction {
 
 export interface PostActionLoaded extends PostAction {
     payload: {
-        posts: Post[]
+        posts: Post[],
+        slice: string
     }
 }
 
@@ -21,11 +22,12 @@ export interface PostActionLoading  extends PostAction {
     }
 }
 
-export const postsLoaded = ( posts: Post[] ): PostActionLoaded => {
+export const postsLoaded = ( posts: Post[], slice: string ): PostActionLoaded => {
     return {
         type: PostActionTypes.POSTS_LOADED,
         payload: {
-            posts
+            posts,
+            slice
         }
     };
 }

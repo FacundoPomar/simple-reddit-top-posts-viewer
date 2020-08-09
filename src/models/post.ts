@@ -6,3 +6,7 @@ export interface Post {
     created_utc: number;
     num_comments: number;
 }
+
+export interface PostsSlice {
+    current: string;
+}
