@@ -15,7 +15,7 @@ const PostItem: React.FC<PostItemProps> = ( { post } ) => (
         Title: {post.title}
       </Typography>
       <Typography variant='subtitle2'>
-        Author: {post.title}
+        Author: {post.author}
       </Typography>
       </div>
       {post.thumbnail &&
