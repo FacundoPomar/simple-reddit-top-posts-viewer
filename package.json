@@ -25,6 +25,10 @@
     "timeago.js": "^4.0.2",
     "typescript": "~3.7.2"
   },
+  "engines": {
+    "npm": "6.9.0",
+    "node": "10.16.2"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
