@@ -12,8 +12,6 @@
 
   &__posts-container {
     width: 95vw;
-    height: 100%;
-    background-color: $main-background;
     padding: 10px;
   }
 
@@ -31,6 +29,12 @@
   &__posts-container-title {
     display: flex;
     align-items: center;
+  }
+
+  &__drawer {
+    & > .MuiPaper-root {
+      background-color: $main-background;
+    }
   }
 }
 

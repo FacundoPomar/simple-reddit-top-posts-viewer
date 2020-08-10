@@ -31,7 +31,8 @@ const App: React.FC = () => {
       <Drawer
         variant="persistent"
         anchor="left"
-        open={open}>
+        open={open}
+        className='app__drawer'>
         <div className='app__posts-container'>
           <div className='app__posts-container-title'>
             <IconButton onClick={handleDrawerToggle}>
